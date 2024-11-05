@@ -1,8 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { PlusIcon } from "lucide-react";
 import React from "react";
-import { PostsTable } from "./_components/post-table";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+import { PlusIcon } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+const PostsTable = dynamic(() => import("./_components/post-table"));
 
 const PostsPage = () => {
   return (
