@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Logo } from "./logo";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
+import { handleLogout } from "@/app/auth/auth.service";
 
 export const Navbar = ({ token }: { token: string }) => {
   const pathname = usePathname();
@@ -50,7 +51,9 @@ export const Navbar = ({ token }: { token: string }) => {
           <Button asChild>
             <Link href="/admin">Go to Dashboard</Link>
           </Button>
-          <Button variant="secondary">Logout</Button>
+          <Button variant="secondary" onClick={handleLogout}>
+            Logout
+          </Button>
         </div>
       )}
     </div>
