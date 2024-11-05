@@ -15,11 +15,7 @@ const getPostById = async (postId: string) => {
   }
 };
 
-const PublicSinglePostPage = async ({
-  params,
-}: {
-  params: { postId: string };
-}) => {
+const PublicSinglePostPage = async ({ params }: { params: any }) => {
   const { postId } = await params;
   const post = await getPostById(postId);
   return (
