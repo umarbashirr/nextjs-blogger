@@ -27,9 +27,14 @@ export default async function AdminLayout({
           <SidebarTrigger />
           <Separator orientation="vertical" className="h-6" />
           <PageBreadCrumb />
-          <Button className="ml-auto" size="sm">
-            <Link href="/admin/posts/create">Write a blog</Link>
-          </Button>
+          <div className="ml-auto flex items-center gap-2">
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/">Go to website</Link>
+            </Button>
+            <Button size="sm">
+              <Link href="/admin/posts/create">Write a blog</Link>
+            </Button>
+          </div>
         </div>
         <div className="p-6">{children}</div>
       </main>
