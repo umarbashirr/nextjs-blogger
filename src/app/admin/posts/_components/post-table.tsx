@@ -18,7 +18,6 @@ import { ERROR_MESSAGES } from "@/constants";
 import { Post } from "@prisma/client";
 import { EyeIcon, Pencil, Trash } from "lucide-react";
 import { toast } from "sonner";
-import Markdown from "react-markdown";
 
 export default function PostsTable() {
   const [posts, setPosts] = useState<Post[]>([]);

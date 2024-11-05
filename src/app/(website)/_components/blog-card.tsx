@@ -11,8 +11,11 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { User2 } from "lucide-react";
+import { Post, User } from "@prisma/client";
 
-export const BlogCard = ({ blog }: { blog: any }) => {
+type PostWithAuthor = Post & { author: User };
+
+export const BlogCard = ({ blog }: { blog: PostWithAuthor }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -35,7 +38,7 @@ export const BlogCard = ({ blog }: { blog: any }) => {
             <div
               className="line-clamp-2"
               dangerouslySetInnerHTML={{
-                __html: blog.content.slice(0, 200),
+                __html: blog.content?.slice(0, 200) || "",
               }}
             ></div>
             <div className="flex items-center gap-2 mt-2">

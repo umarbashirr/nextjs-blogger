@@ -1,7 +1,5 @@
 import { Separator } from "@/components/ui/separator";
 import { User } from "lucide-react";
-import React from "react";
-import Markdown from "react-markdown";
 
 const getPostById = async (postId: string) => {
   try {
@@ -17,7 +15,11 @@ const getPostById = async (postId: string) => {
   }
 };
 
-const PublicSinglePostPage = async ({ params }: { params: any }) => {
+const PublicSinglePostPage = async ({
+  params,
+}: {
+  params: { postId: string };
+}) => {
   const { postId } = await params;
   const post = await getPostById(postId);
   return (

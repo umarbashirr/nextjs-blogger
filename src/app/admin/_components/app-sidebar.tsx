@@ -24,7 +24,11 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export function AppSidebar() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<{
+    id: string;
+    name: string;
+    email: string;
+  } | null>(null);
 
   useEffect(() => {
     const userDetail = window.localStorage.getItem("userDetail");

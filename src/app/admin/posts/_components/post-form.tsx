@@ -17,14 +17,13 @@ import { Switch } from "@/components/ui/switch";
 import { ERROR_MESSAGES } from "@/constants";
 import { postSchema, PostSchema } from "@/schemas/post";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Post } from "@prisma/client";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import React, { useState } from "react";
 import "react-quill-new/dist/quill.snow.css";
 import { toast } from "sonner";
-import dynamic from "next/dynamic";
-import { Post } from "@prisma/client";
 
 const QuillEditor = dynamic(() => import("react-quill-new"), { ssr: false });
 

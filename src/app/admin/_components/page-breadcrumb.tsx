@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,8 +7,9 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { usePathname } from "next/navigation";
 import { adminMenuItems } from "@/utils/admin-menu";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export const PageBreadCrumb = () => {
   const pathname = usePathname();

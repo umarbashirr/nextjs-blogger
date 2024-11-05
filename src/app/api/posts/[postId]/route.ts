@@ -3,7 +3,10 @@ import prisma from "@/utils/db";
 import { postSchema } from "@/schemas/post";
 import { getUser } from "@/utils/get-user";
 
-export async function GET(request: NextRequest, { params }: { params: any }) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { postId: string } }
+) {
   try {
     const { postId } = await params;
 
@@ -20,7 +23,10 @@ export async function GET(request: NextRequest, { params }: { params: any }) {
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: any }) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { postId: string } }
+) {
   try {
     const { postId } = await params;
     const body = await request.json();
