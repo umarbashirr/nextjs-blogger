@@ -13,15 +13,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters long" }),
-});
+import { loginSchema } from "@/schemas/auth";
+import { LoadingButton } from "@/components/loading-button";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -31,7 +29,26 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof loginSchema>) => {
-    console.log(values);
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.log(errorData);
+        toast.error(errorData.message);
+        return;
+      }
+
+      toast.success("Logged in successfully");
+      form.reset();
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -46,7 +63,11 @@ export const LoginForm = () => {
                 Email
               </FormLabel>
               <FormControl>
-                <Input placeholder="john.doe@example.com" {...field} />
+                <Input
+                  placeholder="john.doe@example.com"
+                  {...field}
+                  disabled={form.formState.isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -61,15 +82,23 @@ export const LoginForm = () => {
                 Password
               </FormLabel>
               <FormControl>
-                <Input type="password" {...field} placeholder="********" />
+                <Input
+                  type="password"
+                  {...field}
+                  placeholder="********"
+                  disabled={form.formState.isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <LoadingButton
+          isLoading={form.formState.isSubmitting}
+          label="Logging in..."
+        >
           Login now
-        </Button>
+        </LoadingButton>
       </form>
     </Form>
   );

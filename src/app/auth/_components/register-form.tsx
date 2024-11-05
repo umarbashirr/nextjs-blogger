@@ -1,10 +1,6 @@
 "use client";
 
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { LoadingButton } from "@/components/loading-button";
 import {
   Form,
   FormControl,
@@ -13,16 +9,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-const registerSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters long" }),
-});
+import { Input } from "@/components/ui/input";
+import { registerSchema } from "@/schemas/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
 
 export const RegisterForm = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -33,7 +29,25 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof registerSchema>) => {
-    console.log(values);
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast.error(errorData.message);
+        return;
+      }
+
+      toast.success("Account created successfully");
+      form.reset();
+      router.push("/auth/login");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -48,7 +62,11 @@ export const RegisterForm = () => {
                 Name
               </FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input
+                  placeholder="John Doe"
+                  {...field}
+                  disabled={form.formState.isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -63,7 +81,11 @@ export const RegisterForm = () => {
                 Email
               </FormLabel>
               <FormControl>
-                <Input placeholder="john.doe@example.com" {...field} />
+                <Input
+                  placeholder="john.doe@example.com"
+                  {...field}
+                  disabled={form.formState.isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -78,15 +100,23 @@ export const RegisterForm = () => {
                 Password
               </FormLabel>
               <FormControl>
-                <Input type="password" {...field} placeholder="********" />
+                <Input
+                  type="password"
+                  {...field}
+                  placeholder="********"
+                  disabled={form.formState.isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <LoadingButton
+          isLoading={form.formState.isSubmitting}
+          label="Creating account..."
+        >
           Register
-        </Button>
+        </LoadingButton>
       </form>
     </Form>
   );
