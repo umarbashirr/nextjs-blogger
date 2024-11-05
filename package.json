@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "license": "MIT",
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^5.21.1",
