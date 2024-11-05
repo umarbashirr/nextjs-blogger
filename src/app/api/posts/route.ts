@@ -3,7 +3,7 @@ import prisma from "@/utils/db";
 import { getUser } from "@/utils/get-user";
 import { NextResponse } from "next/server";
 
-export async function GET(_request: Request) {
+export async function GET() {
   try {
     const posts = await prisma.post.findMany({
       include: {

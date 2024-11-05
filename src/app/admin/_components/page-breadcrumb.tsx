@@ -28,7 +28,7 @@ export const PageBreadCrumb = () => {
       const paths = pathname.split("/").slice(1);
       const items = adminMenuItems;
 
-      let totalItems: any[] = [];
+      const totalItems: any[] = [];
 
       paths.forEach((path) => {
         const matchedItem = items.find((item) => item.url.includes(path));
