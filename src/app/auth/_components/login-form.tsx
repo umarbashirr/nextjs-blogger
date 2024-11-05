@@ -34,17 +34,17 @@ export const LoginForm = () => {
         method: "POST",
         body: JSON.stringify(values),
       });
+      const data = await response.json();
 
       if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
-        toast.error(errorData.message);
+        toast.error(data.message);
         return;
       }
 
       toast.success("Logged in successfully");
       form.reset();
-      router.push("/");
+      window.localStorage.setItem("userDetail", JSON.stringify(data));
+      location.href = "/";
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");

@@ -37,6 +37,12 @@ export async function POST(request: Request) {
       );
     }
 
+    const payload = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+    };
+
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: "1h",
     });
@@ -52,10 +58,7 @@ export async function POST(request: Request) {
 
     cookiStore.set("blogger_token", token, cookieOptions);
 
-    return NextResponse.json(
-      { message: "Logged in successfully" },
-      { status: 200 }
-    );
+    return NextResponse.json(payload, { status: 200 });
   } catch (error: any) {
     console.error(error);
     return NextResponse.json(error.message, { status: 500 });
