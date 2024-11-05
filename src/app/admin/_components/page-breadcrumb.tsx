@@ -28,16 +28,16 @@ export const PageBreadCrumb = () => {
       const paths = pathname.split("/").slice(1);
       const items = adminMenuItems;
 
-      let matchedItemsForBreadcrumb: any[] = [];
+      let totalItems: any[] = [];
 
       paths.forEach((path) => {
         const matchedItem = items.find((item) => item.url.includes(path));
         if (matchedItem) {
-          matchedItemsForBreadcrumb.push(matchedItem); // Only push if matchedItem is not undefined
+          totalItems.push(matchedItem); // Only push if matchedItem is not undefined
         }
       });
 
-      setMatchedItemsForBreadcrumb(matchedItemsForBreadcrumb);
+      setMatchedItemsForBreadcrumb(totalItems);
     }
   }, [pathname, isMounted]);
 
