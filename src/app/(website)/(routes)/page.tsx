@@ -17,7 +17,7 @@ const WebsiteLandingPage = async () => {
   const posts = await getPosts();
   return (
     <div>
-      {posts.length ? (
+      {posts && posts?.length ? (
         <RecentBlogGrid blogs={posts} />
       ) : (
         <div className="flex justify-center items-center h-[calc(100vh-100px)]">
