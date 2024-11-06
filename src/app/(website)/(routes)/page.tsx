@@ -2,10 +2,15 @@ import React from "react";
 import RecentBlogGrid from "../_components/recent-blog-grid";
 
 const getPosts = async () => {
-  const posts = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`);
-  const data = await posts.json();
-  console.log(data);
-  return data;
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/posts`
+    );
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    console.log(error);
+  }
 };
 
 const WebsiteLandingPage = async () => {
