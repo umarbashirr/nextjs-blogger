@@ -28,6 +28,7 @@
     "lucide-react": "^0.454.0",
     "next": "15.0.2",
     "next-themes": "^0.4.1",
+    "prisma": "^5.22.0",
     "quill": "^2.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -49,7 +50,6 @@
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
     "postcss": "^8",
-    "prisma": "file:latest",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
